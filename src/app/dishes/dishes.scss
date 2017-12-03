@@ -1,0 +1,25 @@
+@import '../../styles';
+
+.dishes {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: $gossip;
+    display: inline-block;
+    padding: 3px;
+    border-radius: 5px;
+    
+}
+
+.dishes h3 {
+    text-align: center;
+    color: $carmine;
+}
+
+.dish {
+    background-color: $sushi;
+    margin-bottom: 2px;
+    padding: 2px;
+    border-radius: 5px;
+    min-width: 200px;
+    text-align: center;
+}
