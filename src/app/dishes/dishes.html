@@ -2,3 +2,18 @@
     <h3>Aamupalat</h3>
     <div class="dish" *ngFor="let dish of breakfasts" draggable="true" (dragstart)="onDragStart($event, dish)">{{dish}}</div>
 </div>
+
+<div class="dishes meals">
+    <h3>Pääruoat</h3>
+    <div class="dish" *ngFor="let dish of meals" draggable="true" (dragstart)="onDragStart($event, dish)">{{dish}}</div>
+</div>
+
+<div class="dishes desserts">
+    <h3>Jälkiruoat</h3>
+    <div class="dish" *ngFor="let dish of desserts" draggable="true" (dragstart)="onDragStart($event, dish)">{{dish}}</div>
+</div>
+
+<div class="dishes snacks">
+    <h3>Välipalat</h3>
+    <div class="dish" *ngFor="let dish of snacks" draggable="true" (dragstart)="onDragStart($event, dish)">{{dish}}</div>
+</div>

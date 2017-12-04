@@ -8,9 +8,13 @@ import { Component } from '@angular/core';
 export class DishesComponent {
 
     breakfasts = ['Weetabix', 'Kaurapuuro', 'Pekoni ja munat', 'Paistetut munat', 'Mysli'];
+    meals = ['Hernekeitto', 'Lihapullat ja perunamuussi', 'Pasta bolognese', 'Pizza', 'Pasta carbonara', 
+        'Nakit ja ranskalaiset', 'Lihamakaronilaatikko', 'Maksalaatikko'];
+    desserts = ['Jäätelö', 'Mustikkapiirakka', 'Pulla', 'Kakku'];
+    snacks = ['Jogurtti', 'Raejuusto', 'Banaani', 'Omena', 'Keksi', 'Sämpylä'];
+
 
     onDragStart(event: DragEvent, dish: string) {
-        console.log(dish);
         event.dataTransfer.setData('text/plain', dish);
     }
 }
