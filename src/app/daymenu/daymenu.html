@@ -1,0 +1,3 @@
+<div class="daymenu dishes breakfast" (drop)="dropBreakfast($event)" (dragover)="$event.preventDefault()">
+    <div class="dish" *ngFor="let breakfast of breakfasts">{{breakfast}}</div>
+</div>

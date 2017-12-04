@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 export class DishesComponent {
 
     breakfasts = ['Weetabix', 'Kaurapuuro', 'Pekoni ja munat', 'Paistetut munat', 'Mysli'];
+
+    onDragStart(event: DragEvent, dish: string) {
+        console.log(dish);
+        event.dataTransfer.setData('text/plain', dish);
+    }
 }

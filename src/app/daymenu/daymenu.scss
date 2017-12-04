@@ -1,0 +1,11 @@
+@import '../../styles';
+
+.daymenu {
+    min-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 300px;
+    background-color: $gossip;
+    border-radius: 5px;
+    display: inline-block;
+}

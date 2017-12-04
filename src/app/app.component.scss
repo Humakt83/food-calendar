@@ -1,0 +1,10 @@
+@import '../styles';
+
+hr {
+    margin-top: 2px;
+    margin-bottom: 7px;
+    border-color: $sushi;
+    border-width: 2px;
+    width: 95%;
+    border-style: outset;
+}

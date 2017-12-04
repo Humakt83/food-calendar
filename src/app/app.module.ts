@@ -6,13 +6,14 @@ import { CalendarModule } from 'angular-calendar';
 import { AppComponent } from './app.component';
 import { WeekComponent } from './week/week.component';
 import { DishesComponent } from './dishes/dishes.component';
-
+import { DayMenuComponent } from './daymenu/daymenu.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
     WeekComponent,
-    DishesComponent
+    DishesComponent,
+    DayMenuComponent
   ],
   imports: [
     BrowserModule,
