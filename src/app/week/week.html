@@ -5,5 +5,6 @@
 </div>
 <mwl-calendar-week-view
     [viewDate]="viewDate"
-    [events]="[]">
+    [events]="[]"
+    (dayHeaderClicked)="changeDay($event.day.date)">
 </mwl-calendar-week-view>

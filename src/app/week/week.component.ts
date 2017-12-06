@@ -28,6 +28,11 @@ export class WeekComponent {
         this.changeDate();
     }
 
+    changeDay(day: Date) {
+        this.viewDate = day;
+        this.changeDate();
+    }
+
     private changeDate() {
         this.dateService.changeDate(this.viewDate);
     }
