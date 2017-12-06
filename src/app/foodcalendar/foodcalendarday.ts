@@ -1,3 +1,6 @@
+import { FoodSection } from './foodsection';
+
+
 export class FoodCalendarDay {
     constructor(public day: Date, public sections: FoodMenuSection[]) {}
 
@@ -8,9 +11,9 @@ export class FoodCalendarDay {
 }
 
 export class FoodMenuSection {
-    constructor(public section: string, public food: string[]) {}
+    constructor(public section: FoodSection, public food: string[]) {}
 
     static fromJson(json: any): FoodMenuSection {
-        return new FoodMenuSection(json.section, json.food);
+        return new FoodMenuSection(json.section as FoodSection, json.food);
     }
 }

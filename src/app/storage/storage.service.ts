@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { FoodCalendarDay, FoodMenuSection } from '../foodcalendar/foodcalendarday';
+import { FoodSection } from '../foodcalendar/foodsection';
 
 @Injectable()
 export class StorageService {
 
     private readonly storageName: string = 'FOOD_CALENDAR_STORAGE';
     
-    storeFood(food: string, where: string, day: Date) {
+    storeFood(food: string, where: FoodSection, day: Date) {
         const foodDay = this.getFood(day);
-        const section = foodDay.sections.find(s => s.section === where);
-        if (!!section) {
+        const section = foodDay.sections.find(s => FoodSection[s.section] === FoodSection[where]);
+        if (section !== null && section !== undefined) {
             section.food.push(food);
         } else {
-            foodDay.sections.push(new FoodMenuSection(where, [food]));
+            foodDay.sections.push(new FoodMenuSection(where as FoodSection, [food]));
         }
         this.storeFoodDay(foodDay);
     }
