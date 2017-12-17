@@ -50,7 +50,10 @@ export class DayMenuComponent {
     }
 
     private dropFood(event: DragEvent, section: FoodSection, arrayToAdd: string[]) {
-        const food: string = event.dataTransfer.getData('text/plain');
+        const food: string = event.dataTransfer.getData('food');
+        if (!food) { 
+            return; 
+        }
         arrayToAdd.push(food);
         this.storage.storeFood(food, section, this.selectedDay);
     }

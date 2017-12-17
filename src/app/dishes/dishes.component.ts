@@ -15,6 +15,6 @@ export class DishesComponent {
 
 
     onDragStart(event: DragEvent, dish: string) {
-        event.dataTransfer.setData('text/plain', dish);
+        event.dataTransfer.setData('food', dish);
     }
 }
