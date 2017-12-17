@@ -1,3 +1,43 @@
+@import '../../styles';
+
 .shoppingListButton {
     float: right;
+}
+
+.closeShoppingList {
+    float: right;
+}
+
+.shoppingList {
+    z-index: 200;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(to bottom right, $lilac, $carmine 90%);
+}
+
+.shoppingItems {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.shoppingItem {
+    color: $sushi;
+    background-color: $gossip;
+    margin-bottom: 2px;
+    padding: 2px;
+    border-radius: 5px;
+    width: fit-content;
+    min-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.removeItemButton {
+    min-width: 10px !important;
+    font-size: 10px !important;
+    float: right;
+    margin-right: 2px;
 }

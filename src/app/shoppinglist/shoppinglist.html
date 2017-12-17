@@ -1,1 +1,10 @@
 <input class="shoppingListButton" type="button" value="OSTOSLISTA" (click)="openShoppingList()">
+
+<div class="shoppingList" *ngIf="opened">
+    <input class="closeShoppingList" type="button" value="SULJE" (click)="closeShoppingList()">
+    <div class="shoppingItems">
+        <div class="shoppingItem" *ngFor="let item of shoppingItems">
+            {{item}} <input class="removeItemButton" type="button" value="X" (click)="removeFromShoppingList(item)">
+        </div>
+    </div>    
+</div>
