@@ -1,19 +1,27 @@
-<div class="daymenu dishes breakfast" (drop)="dropBreakfast($event)" (dragover)="$event.preventDefault()" (dragstart)="$event.preventDefault()" draggable="false">
+<div class="daymenu dishes breakfast" (drop)="dropBreakfast($event)" (dragover)="$event.preventDefault()" (dragstart)="$event.preventDefault()">
     <h3>Aamupala</h3>
-    <div class="dish" *ngFor="let breakfast of breakfasts" draggable="false">{{breakfast}}</div>
+    <div class="dish" *ngFor="let breakfast of breakfasts">
+        {{breakfast}} <input class="removeItemButton" type="button" value="X" (click)="removeBreakfast(breakfast)">
+    </div>
 </div>
 
-<div class="daymenu dishes lunch" (drop)="dropLunch($event)" (dragover)="$event.preventDefault()" draggable="false">
+<div class="daymenu dishes lunch" (drop)="dropLunch($event)" (dragover)="$event.preventDefault()">
     <h3>Lounas</h3>
-    <div class="dish" *ngFor="let lunch of lunches" draggable="false">{{lunch}}</div>
+    <div class="dish" *ngFor="let lunch of lunches">
+        {{lunch}} <input class="removeItemButton" type="button" value="X" (click)="removeLunch(lunch)">
+    </div>
 </div>
 
-<div class="daymenu dishes dinner" (drop)="dropDinner($event)" (dragover)="$event.preventDefault()" draggable="false">
+<div class="daymenu dishes dinner" (drop)="dropDinner($event)" (dragover)="$event.preventDefault()">
     <h3>Päivällinen</h3>
-    <div class="dish" *ngFor="let dinner of dinners" draggable="false">{{dinner}}</div>
+    <div class="dish" *ngFor="let dinner of dinners">
+        {{dinner}} <input class="removeItemButton" type="button" value="X" (click)="removeDinner(dinner)">
+    </div>
 </div>
 
-<div class="daymenu dishes snack" (drop)="dropSnack($event)" (dragover)="$event.preventDefault()" draggable="false">
+<div class="daymenu dishes snack" (drop)="dropSnack($event)" (dragover)="$event.preventDefault()">
     <h3>Iltapala</h3>
-    <div class="dish" *ngFor="let snack of snacks" draggable="false">{{snack}}</div>
+    <div class="dish" *ngFor="let snack of snacks">
+        {{snack}} <input class="removeItemButton" type="button" value="X" (click)="removeSnack(snack)">
+    </div>
 </div>

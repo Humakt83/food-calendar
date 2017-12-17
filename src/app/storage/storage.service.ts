@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FoodCalendarDay, FoodMenuSection } from '../foodcalendar/foodcalendarday';
 import { FoodSection } from '../foodcalendar/foodsection';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 @Injectable()
 export class StorageService {
@@ -15,6 +16,15 @@ export class StorageService {
             section.food.push(food);
         } else {
             foodDay.sections.push(new FoodMenuSection(where as FoodSection, [food]));
+        }
+        this.storeFoodDay(foodDay);
+    }
+
+    removeFood(food: string, where: FoodSection, day: Date) {
+        const foodDay = this.getFood(day);
+        const section = foodDay.sections.find(s => FoodSection[s.section] === FoodSection[where]);
+        if (section !== null && section !== undefined) {
+            _.remove(section.food, (f => f === food));
         }
         this.storeFoodDay(foodDay);
     }

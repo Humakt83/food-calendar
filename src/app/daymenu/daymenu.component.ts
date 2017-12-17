@@ -3,11 +3,12 @@ import { StorageService } from '../storage/storage.service';
 import { FoodCalendarDay, FoodMenuSection } from '../foodcalendar/foodcalendarday';
 import { FoodSection } from '../foodcalendar/foodsection';
 import { DateService } from '../week/date.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-daymenu',
     templateUrl: 'daymenu.html',
-    styleUrls: ['daymenu.scss', '../dishes/dishes.scss']
+    styleUrls: ['daymenu.scss', '../dishes/dishes.scss', '../shoppinglist/shoppinglist.scss']
 })
 export class DayMenuComponent {
 
@@ -47,6 +48,27 @@ export class DayMenuComponent {
 
     dropSnack(event: DragEvent) {
         this.dropFood(event, FoodSection.SNACK, this.snacks);
+    }
+
+    removeBreakfast(food: string) {
+        this.removeFood(FoodSection.BREAKFAST, this.breakfasts, food);
+    }
+
+    removeLunch(food: string) {
+        this.removeFood(FoodSection.LUNCH, this.lunches, food);
+    }
+
+    removeDinner(food: string) {
+        this.removeFood(FoodSection.DINNER, this.dinners, food);
+    }
+
+    removeSnack(food: string) {
+        this.removeFood(FoodSection.SNACK, this.snacks, food);
+    }
+
+    private removeFood(section: FoodSection, arrayToRemove: string[], food: string) {
+        _.remove(arrayToRemove, (f => f === food));
+        this.storage.removeFood(food, section, this.selectedDay);
     }
 
     private dropFood(event: DragEvent, section: FoodSection, arrayToAdd: string[]) {
