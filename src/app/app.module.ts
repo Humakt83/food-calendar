@@ -9,13 +9,15 @@ import { DishesComponent } from './dishes/dishes.component';
 import { DayMenuComponent } from './daymenu/daymenu.component';
 import { StorageService } from './storage/storage.service';
 import { DateService } from './week/date.service';
+import { ShoppingListComponent } from './shoppinglist/shoppinglist.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         WeekComponent,
         DishesComponent,
-        DayMenuComponent
+        DayMenuComponent,
+        ShoppingListComponent
     ],
     imports: [
         BrowserModule,

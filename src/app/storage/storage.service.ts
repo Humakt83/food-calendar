@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FoodCalendarDay, FoodMenuSection } from '../foodcalendar/foodcalendarday';
 import { FoodSection } from '../foodcalendar/foodsection';
+import * as moment from 'moment';
 
 @Injectable()
 export class StorageService {
@@ -20,6 +21,11 @@ export class StorageService {
 
     getFood(day: Date): FoodCalendarDay {
         return this.getFoodDataForDay(day) || new FoodCalendarDay(day, []);
+    }
+
+    getFoodForShoppingList(): FoodCalendarDay[] {
+        const currentDate: moment.Moment = moment(new Date()).set('hour', 0).set('minute', 0).set('second', 0);
+        return this.getFoodData().filter(fc => moment(fc.day).isSameOrAfter(currentDate));
     }
 
     private storeFoodDay(foodDay: FoodCalendarDay) {
