@@ -11,6 +11,8 @@ export class ShoppingListComponent {
 
     opened = false;
 
+    usePrintableClass = false;
+
     shoppingItems: string[] = [];
 
     constructor(private storage: StorageService) {}
@@ -24,8 +26,13 @@ export class ShoppingListComponent {
         this.opened = true;
     }
 
+    printableVersion() {
+        this.usePrintableClass = true;
+    }
+
     closeShoppingList() {
         this.opened = false;
+        this.usePrintableClass = false;
     }
 
     removeFromShoppingList(item: string) {

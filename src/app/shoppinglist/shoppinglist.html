@@ -1,10 +1,11 @@
 <input class="shoppingListButton" type="button" value="OSTOSLISTA" (click)="openShoppingList()">
 
-<div class="shoppingList" *ngIf="opened">
-    <input class="closeShoppingList" type="button" value="SULJE" (click)="closeShoppingList()">
+<div *ngIf="opened" class="shoppingList" [class.printable]="usePrintableClass">    
+    <input class="shoppingListButton" type="button" value="SULJE" (click)="closeShoppingList()">
+    <input class="shoppingListButton" type="button" value="TULOSTETTAVA VERSIO" (click)="printableVersion()" *ngIf="!usePrintableClass">
     <div class="shoppingItems">
-        <div class="shoppingItem" *ngFor="let item of shoppingItems">
-            {{item}} <input class="removeItemButton" type="button" value="X" (click)="removeFromShoppingList(item)">
+        <div *ngFor="let item of shoppingItems" class="shoppingItem"  [class.printable]="usePrintableClass">
+            {{item}} <input class="removeItemButton" type="button" value="X" (click)="removeFromShoppingList(item)" *ngIf="!usePrintableClass">
         </div>
     </div>    
 </div>
