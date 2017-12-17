@@ -10,6 +10,7 @@ import { DayMenuComponent } from './daymenu/daymenu.component';
 import { StorageService } from './storage/storage.service';
 import { DateService } from './week/date.service';
 import { ShoppingListComponent } from './shoppinglist/shoppinglist.component';
+import { DishesService } from './dishes/dishes.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { ShoppingListComponent } from './shoppinglist/shoppinglist.component';
     ],
     providers: [
         StorageService,
-        DateService],
+        DateService,
+        DishesService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

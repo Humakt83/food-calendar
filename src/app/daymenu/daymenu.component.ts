@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StorageService } from '../storage/storage.service';
 import { FoodCalendarDay, FoodMenuSection } from '../foodcalendar/foodcalendarday';
 import { FoodSection } from '../foodcalendar/foodsection';
 import { DateService } from '../week/date.service';
 import * as _ from 'lodash';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-daymenu',
     templateUrl: 'daymenu.html',
     styleUrls: ['daymenu.scss', '../dishes/dishes.scss', '../shoppinglist/shoppinglist.scss']
 })
-export class DayMenuComponent {
+export class DayMenuComponent implements OnInit, OnDestroy {
 
     breakfasts: string[] = [];
     lunches: string[] = [];
@@ -18,9 +19,13 @@ export class DayMenuComponent {
     snacks: string[] = [];
 
     private selectedDay: Date;
+    private subscription: Subscription;
 
     constructor(private storage: StorageService, private dateService: DateService) {
-        this.dateService.selectedDate.subscribe(result => {
+    }
+
+    ngOnInit() {
+        this.subscription = this.dateService.selectedDate.subscribe(result => {
             const getFoodForSection = (section: FoodSection, sections: FoodMenuSection[]) => {
                 return sections.map(s => s.section).includes(section) ? 
                     sections.filter(s => s.section === section)[0].food : [];
@@ -32,6 +37,12 @@ export class DayMenuComponent {
             this.dinners = getFoodForSection(FoodSection.DINNER, foodSections);     
             this.snacks = getFoodForSection(FoodSection.SNACK, foodSections);
         });
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     dropBreakfast(event: DragEvent) {

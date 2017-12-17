@@ -9,7 +9,7 @@
 </div>
 
 <div class="dishes desserts">
-    <h3>Jälkiruoat</h3>
+    <h3>Jälkiruoat</h3>    
     <div class="dish" *ngFor="let dish of desserts" draggable="true" (dragstart)="onDragStart($event, dish)">{{dish}}</div>
 </div>
 

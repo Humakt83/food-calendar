@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FoodCalendarDay, FoodMenuSection } from '../foodcalendar/foodcalendarday';
+import { FoodCalendarDay, FoodMenuSection, FoodDishSection } from '../foodcalendar/foodcalendarday';
 import { FoodSection } from '../foodcalendar/foodsection';
+import { DishType } from '../foodcalendar/dishtype';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -8,6 +9,7 @@ import * as _ from 'lodash';
 export class StorageService {
 
     private readonly storageName: string = 'FOOD_CALENDAR_STORAGE';
+    private readonly foodSectionStorage: string = 'FOOD_CALENDAR_SECTION_STORAGE';
     
     storeFood(food: string, where: FoodSection, day: Date) {
         const foodDay = this.getFood(day);
@@ -38,6 +40,23 @@ export class StorageService {
         return this.getFoodData().filter(fc => moment(fc.day).isSameOrAfter(currentDate));
     }
 
+    addFoodToSection(food: string, section: DishType) {
+        let sections: FoodDishSection[] = this.getFoodSectionStorage();
+        const sectionStorage: FoodDishSection = sections.find(fmc => fmc.section === section) || new FoodDishSection(section, []);
+        sectionStorage.food.push(food);
+        sectionStorage.food = _.uniq(sectionStorage.food);
+        if (!!sections.find(s => s.section === section)) {
+            sections = sections.filter(s => s.section === section);
+        }
+        sections.push(sectionStorage);
+        localStorage.setItem(this.foodSectionStorage, JSON.stringify(sections));
+    }
+
+    getFoodForSection(section: DishType): string[] {
+        const sectionStorage: FoodDishSection = this.getFoodSectionStorage().find(fmc => fmc.section === section);
+        return !!sectionStorage ? sectionStorage.food : [];
+    }
+
     private storeFoodDay(foodDay: FoodCalendarDay) {
         const findFoodDay = (fcd) => fcd.day.toDateString() === foodDay.day.toDateString();
         const filterOutFoodDay = (fcd) => !findFoodDay(fcd);
@@ -55,6 +74,11 @@ export class StorageService {
 
     private getFoodData(): FoodCalendarDay[] {
         return JSON.parse(localStorage.getItem(this.storageName) || '[]').map(FoodCalendarDay.fromJson);
+    }
+
+    private getFoodSectionStorage(): FoodDishSection[] {
+        return JSON.parse(localStorage.getItem(this.foodSectionStorage) || '[]')
+            .map(FoodDishSection.fromJson);            
     }
 
 }

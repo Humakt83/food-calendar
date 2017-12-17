@@ -1,18 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DishesService } from './dishes.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-dishes',
     templateUrl: 'dishes.html',
     styleUrls: ['dishes.scss']
 })
-export class DishesComponent {
+export class DishesComponent implements OnInit, OnDestroy {
 
-    breakfasts = ['Weetabix', 'Kaurapuuro', 'Pekoni ja munat', 'Paistetut munat', 'Mysli'];
-    meals = ['Hernekeitto', 'Lihapullat ja perunamuussi', 'Pasta bolognese', 'Pizza', 'Pasta carbonara', 
-        'Nakit ja ranskalaiset', 'Lihamakaronilaatikko', 'Maksalaatikko'];
-    desserts = ['Jäätelö', 'Mustikkapiirakka', 'Pulla', 'Kakku'];
-    snacks = ['Jogurtti', 'Raejuusto', 'Banaani', 'Omena', 'Keksi', 'Sämpylä'];
+    breakfasts = [];
+    meals = [];
+    desserts = [];
+    snacks = [];
 
+    private subscriptions: Subscription[] = [];
+
+    constructor(private dishesService: DishesService) {
+    }
+
+    ngOnInit() {
+        this.subscriptions.push(this.dishesService.getBreakfasts().subscribe(result => this.breakfasts = result));
+        this.subscriptions.push(this.dishesService.getMeals().subscribe(result => this.meals = result));
+        this.subscriptions.push(this.dishesService.getDesserts().subscribe(result => this.desserts = result));
+        this.subscriptions.push(this.dishesService.getSnacks().subscribe(result => this.snacks = result));
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
+    }
 
     onDragStart(event: DragEvent, dish: string) {
         event.dataTransfer.setData('food', dish);
