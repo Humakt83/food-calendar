@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DishType } from '../foodcalendar/dishtype';
+import { DishesService } from './dishes.service';
 
 @Component({
     selector: 'app-dishadd',
@@ -15,6 +16,8 @@ export class DishAddComponent implements OnInit {
 
     showAddDishModal = false;
 
+    constructor(private dishesService: DishesService) {}
+
     ngOnInit() {
         this.dishAddForm = new FormGroup({
             name: new FormControl(),
@@ -26,9 +29,15 @@ export class DishAddComponent implements OnInit {
         this.showAddDishModal = true;
     }
 
+    closeAddDishModal() {
+        this.showAddDishModal = false;
+    }
+
     addDish(event: Event) {
         event.preventDefault();
-        console.log(this.dishAddForm.value);
+        this.closeAddDishModal();
+        const chosenDishType: DishType = Number.parseInt(this.dishAddForm.value.dish) as DishType;
+        this.dishesService.addDish(chosenDishType, this.dishAddForm.value.name);
     }
 
 }

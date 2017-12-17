@@ -1,10 +1,10 @@
 <input class="addDishButton" type="button" value="LISÄÄ RUOKA" (click)="openAddDishModal()">
 
-<div class="addDishModal" *ngIf="showAddDishModal">
-    <form [formGroup]="dishAddForm" (submit)="addDish($event)">
-        <pre>{{dishAddForm.value | json}}</pre>
+<div class="addDishModal" *ngIf="showAddDishModal" (click)="closeAddDishModal()">
+    <form [formGroup]="dishAddForm" (submit)="addDish($event)" (click)="$event.stopPropagation()">        
         <label for="foodName">Ruoka</label>
         <input name="foodName" type="text" class="form-control" formControlName="name" required>
+        <br>
         <label for="dishGroup">Valitse ruokalaji</label>
         <select name="dishGroup" class="form-control" formControlName="dish" required>
             <option *ngFor="let dish of dishType.dishTypes()"
@@ -12,6 +12,7 @@
                     {{dishType.translateDishType(dish)}} 
             </option>
         </select>
+        <br>
         <input type="submit" value="Lisää ruoka" [disabled]="!dishAddForm.value.name || dishAddForm.value.name.length < 1 || !dishAddForm.value.dish">
     </form>
 </div>

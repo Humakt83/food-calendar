@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/combineLatest';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import * as _ from 'lodash';
 
 @Injectable()
 export class DishesService {
@@ -16,10 +17,10 @@ export class DishesService {
     private snacks = new BehaviorSubject<string[]>(['Jogurtti', 'Raejuusto', 'Banaani', 'Omena', 'Keksi', 'Sämpylä']);
 
     constructor(private storage: StorageService) {
-        this.breakfasts.next(this.breakfasts.getValue().concat(this.storage.getFoodForSection(DishType.BREAKFAST)));
-        this.meals.next(this.meals.getValue().concat(this.storage.getFoodForSection(DishType.MEAL)));
-        this.desserts.next(this.desserts.getValue().concat(this.storage.getFoodForSection(DishType.DESSERT)));
-        this.snacks.next(this.snacks.getValue().concat(this.storage.getFoodForSection(DishType.SNACK)));
+        this.breakfasts.next(_.uniq(this.breakfasts.getValue().concat(this.storage.getFoodForSection(DishType.BREAKFAST))));
+        this.meals.next(_.uniq(this.meals.getValue().concat(this.storage.getFoodForSection(DishType.MEAL))));
+        this.desserts.next(_.uniq(this.desserts.getValue().concat(this.storage.getFoodForSection(DishType.DESSERT))));
+        this.snacks.next(_.uniq(this.snacks.getValue().concat(this.storage.getFoodForSection(DishType.SNACK))));
     }
 
     getBreakfasts(): Observable<string[]> {
@@ -36,6 +37,30 @@ export class DishesService {
 
     getSnacks(): Observable<string[]> {
         return this.snacks;
+    }
+
+    addDish(dishType: DishType, food: string) {
+        const dishSection = this.getDishesForDishType(dishType);
+        const dishes = dishSection.getValue();
+        if (_.includes(dishes, food)) {
+            return;
+        }
+        dishes.push(food);
+        dishSection.next(dishes);
+        this.storage.addFoodToSection(food, dishType);
+    }
+
+    private getDishesForDishType(dishType: DishType): BehaviorSubject<string[]> {
+        switch (dishType) {
+            case DishType.BREAKFAST:
+                return this.breakfasts;
+            case DishType.MEAL:
+                return this.meals;
+            case DishType.DESSERT:
+                return this.desserts;
+            case DishType.SNACK: 
+                return this.snacks;
+        }
     }
 
 }

@@ -36,7 +36,10 @@ body {
 	background-color: $lilac;
 }
 
-input[type=button] {
+input[type=button],
+input[type=submit],
+input[type=text],
+select {
     color: $lilac;
     background-color: $sushi;
     font-weight: bold;
