@@ -1,7 +1,7 @@
 <div class="weekControls">
-    <input type="button" value="&#8612;" (click)="previousWeek()">
-    <input type="button" value="TODAY" (click)="today()">
-    <input type="button" value="&#8614;" (click)="nextWeek()">
+    <input id="previousWeek" type="button" value="&#8612;" (click)="previousWeek()">
+    <input id="today" type="button" value="TODAY" (click)="today()">
+    <input id="nextWeek" type="button" value="&#8614;" (click)="nextWeek()">
 </div>
 <mwl-calendar-week-view
     [viewDate]="viewDate"
