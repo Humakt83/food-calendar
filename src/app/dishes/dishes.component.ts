@@ -11,8 +11,9 @@ export class DishesComponent implements OnInit, OnDestroy {
 
     breakfasts = [];
     meals = [];
+    soups = [];
     desserts = [];
-    snacks = [];
+    snacks = [];    
 
     private subscriptions: Subscription[] = [];
 
@@ -24,6 +25,7 @@ export class DishesComponent implements OnInit, OnDestroy {
         this.subscriptions.push(this.dishesService.getMeals().subscribe(result => this.meals = result));
         this.subscriptions.push(this.dishesService.getDesserts().subscribe(result => this.desserts = result));
         this.subscriptions.push(this.dishesService.getSnacks().subscribe(result => this.snacks = result));
+        this.subscriptions.push(this.dishesService.getSoups().subscribe(result => this.soups = result));
     }
 
     ngOnDestroy() {

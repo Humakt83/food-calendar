@@ -11,16 +11,19 @@ import * as _ from 'lodash';
 export class DishesService {
 
     private breakfasts = new BehaviorSubject<string[]>(['Weetabix', 'Kaurapuuro', 'Pekoni ja munat', 'Paistetut munat', 'Mysli']);
-    private meals = new BehaviorSubject<string[]>(['Hernekeitto', 'Lihapullat ja perunamuussi', 'Pasta bolognese', 'Pizza', 
+    private meals = new BehaviorSubject<string[]>(['Lihapullat ja perunamuussi', 'Pasta bolognese', 'Pizza', 
         'Pasta carbonara', 'Nakit ja ranskalaiset', 'Lihamakaronilaatikko', 'Maksalaatikko']);
     private desserts = new BehaviorSubject<string[]>(['Jäätelö', 'Mustikkapiirakka', 'Pulla', 'Kakku']);
     private snacks = new BehaviorSubject<string[]>(['Jogurtti', 'Raejuusto', 'Banaani', 'Omena', 'Keksi', 'Sämpylä']);
+    private soups = new BehaviorSubject<string[]>(['Hernekeitto', 'Siskonmakkarakeitto', 'Porkkanakeitto', 'Nakkikeitto', 
+        'Jauhelihakeitto']);
 
     constructor(private storage: StorageService) {
         this.breakfasts.next(_.uniq(this.breakfasts.getValue().concat(this.storage.getFoodForSection(DishType.BREAKFAST))));
         this.meals.next(_.uniq(this.meals.getValue().concat(this.storage.getFoodForSection(DishType.MEAL))));
         this.desserts.next(_.uniq(this.desserts.getValue().concat(this.storage.getFoodForSection(DishType.DESSERT))));
         this.snacks.next(_.uniq(this.snacks.getValue().concat(this.storage.getFoodForSection(DishType.SNACK))));
+        this.soups.next(_.uniq(this.soups.getValue()).concat(this.storage.getFoodForSection(DishType.SOUP)));
     }
 
     getBreakfasts(): Observable<string[]> {
@@ -37,6 +40,10 @@ export class DishesService {
 
     getSnacks(): Observable<string[]> {
         return this.snacks;
+    }
+
+    getSoups(): Observable<string[]> {
+        return this.soups;
     }
 
     addDish(dishType: DishType, food: string) {
@@ -60,6 +67,8 @@ export class DishesService {
                 return this.desserts;
             case DishType.SNACK: 
                 return this.snacks;
+            case DishType.SOUP:
+                return this.soups;
         }
     }
 

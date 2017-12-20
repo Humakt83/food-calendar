@@ -1,11 +1,11 @@
 export enum DishType {
-    MEAL, BREAKFAST, DESSERT, SNACK
+    MEAL, BREAKFAST, DESSERT, SNACK, SOUP
 }
 
 export namespace DishType {
 
     export function dishTypes(): DishType[] {
-        return [DishType.BREAKFAST, DishType.MEAL, DishType.DESSERT, DishType.SNACK];
+        return [DishType.BREAKFAST, DishType.MEAL, DishType.DESSERT, DishType.SNACK, DishType.SOUP];
     }
 
     export function translateDishType(dishType: DishType): string {
@@ -18,6 +18,8 @@ export namespace DishType {
                 return 'Välipalat';
             case DishType.DESSERT:
                 return 'Jälkiruoat';
+            case DishType.SOUP:
+                return 'Keitot';
         }
     }
 }
