@@ -2,6 +2,7 @@
 
 .shoppingListButton {
     float: right;
+    margin-right: 5%;
 }
 
 .shoppingList {
@@ -11,7 +12,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: linear-gradient(to bottom right, $lilac, $carmine 90%);
+    background: $background;
 }
 
 .shoppingItems {
@@ -20,8 +21,8 @@
 }
 
 .shoppingItem {
-    color: $sushi;
-    background-color: $gossip;
+    color: $secondary;
+    background-color: $main;
     margin-bottom: 2px;
     padding: 2px;
     border-radius: 5px;

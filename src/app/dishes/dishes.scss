@@ -3,7 +3,7 @@
 .dishes {
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: $gossip;
+    background-color: $main2;
     display: inline-block;
     padding: 3px;
     border-radius: 5px;
@@ -13,11 +13,11 @@
 
 .dishes h3 {
     text-align: center;
-    color: $carmine;
+    color: $secondary;
 }
 
 .dish {
-    background-color: $sushi;
+    background-color: $main;
     margin-bottom: 2px;
     padding: 2px;
     border-radius: 5px;

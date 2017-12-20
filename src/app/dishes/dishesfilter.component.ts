@@ -12,7 +12,8 @@ import { DishesService } from './dishes.service';
     styles: [`
         .dishesFilter {
             display: inline-block;
-            float: left;     
+            float: left;
+            margin-left: 5%;    
         }
     `]
 })

@@ -1,4 +1,4 @@
-<input class="addDishButton" type="button" value="LISÄÄ RUOKA" (click)="openAddDishModal()">
+<input class="addDishButton" type="button" value="Lisää ruoka" (click)="openAddDishModal()">
 
 <div class="addDishModal" *ngIf="showAddDishModal" (click)="closeAddDishModal()">
     <form [formGroup]="dishAddForm" (submit)="addDish($event)" (click)="$event.stopPropagation()">        

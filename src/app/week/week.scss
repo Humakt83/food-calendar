@@ -2,29 +2,34 @@
 
 .weekControls {
     margin: auto; 
-    display: table;   
+    display: table;
 }
 
 .dayControls {
     width: 100%;
     margin-top: 2px;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 .dayControl {
     display: inline-block;
-    border: 2px ridge $gossip;
-    background-color: $sushi;
+    border: 1px ridge $main2;
+    background-color: $main;
     padding: 3px;
-    width: 13.74%;
+    width: 13%;
     text-align: center;
     cursor: pointer;
 }
 
 .dayControlActive,
 .dayControl:hover {
-    border: 2px ridge $sushi;
-    background-color: $gossip;
+    border: 1px ridge $main;
+    background-color: $main2;
+}
+
+.dayControlActive {
+    cursor: default;
 }
 
 .date {

@@ -36,8 +36,8 @@ export class StorageService {
     }
 
     getFoodForShoppingList(): FoodCalendarDay[] {
-        const currentDate: moment.Moment = moment(new Date()).set('hour', 0).set('minute', 0).set('second', 0);
-        return this.getFoodData().filter(fc => moment(fc.day).isSameOrAfter(currentDate));
+        const currentDate: moment.Moment = moment(new Date()).set('hours', 0);
+        return this.getFoodData().filter(fc => moment(fc.day).isSameOrAfter(currentDate, 'hour'));
     }
 
     addFoodToSection(food: string, section: DishType) {

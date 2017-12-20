@@ -3,8 +3,12 @@
 hr {
     margin-top: 2px;
     margin-bottom: 7px;
-    border-color: $sushi;
+    border-color: $main2;
     border-width: 2px;
     width: 95%;
-    border-style: outset;
+    border-style: inset;
+}
+
+nav {
+    background: $main;
 }
