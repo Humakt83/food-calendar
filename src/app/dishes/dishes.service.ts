@@ -17,6 +17,8 @@ export class DishesService {
     private snacks = new BehaviorSubject<string[]>(['Jogurtti', 'Raejuusto', 'Banaani', 'Omena', 'Keksi', 'Sämpylä']);
     private soups = new BehaviorSubject<string[]>(['Hernekeitto', 'Siskonmakkarakeitto', 'Porkkanakeitto', 'Nakkikeitto', 
         'Jauhelihakeitto']);
+    
+    private dishesFilter = new BehaviorSubject<string>('');
 
     constructor(private storage: StorageService) {
         this.breakfasts.next(_.uniq(this.breakfasts.getValue().concat(this.storage.getFoodForSection(DishType.BREAKFAST))));
@@ -55,6 +57,14 @@ export class DishesService {
         dishes.push(food);
         dishSection.next(dishes);
         this.storage.addFoodToSection(food, dishType);
+    }
+
+    getFilter(): Observable<string> {
+        return this.dishesFilter;
+    }
+
+    changeFilter(filter: string) {
+        this.dishesFilter.next(filter);
     }
 
     private getDishesForDishType(dishType: DishType): BehaviorSubject<string[]> {

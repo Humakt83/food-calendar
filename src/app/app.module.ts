@@ -12,6 +12,8 @@ import { DateService } from './week/date.service';
 import { ShoppingListComponent } from './shoppinglist/shoppinglist.component';
 import { DishesService } from './dishes/dishes.service';
 import { DishAddComponent } from './dishes/dishadd.component';
+import { DishesFilterComponent } from './dishes/dishesfilter.component';
+import { DishesFilterPipe } from './dishes/dishesfilter.pipe';
 
 @NgModule({
     declarations: [
@@ -20,7 +22,9 @@ import { DishAddComponent } from './dishes/dishadd.component';
         DishesComponent,
         DayMenuComponent,
         ShoppingListComponent,
-        DishAddComponent
+        DishAddComponent,
+        DishesFilterComponent,
+        DishesFilterPipe
     ],
     imports: [
         BrowserModule,
