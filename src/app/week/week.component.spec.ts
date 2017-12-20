@@ -2,7 +2,6 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { WeekComponent } from './week.component';
 import { DateService } from './date.service';
-import { CalendarModule } from 'angular-calendar';
 
 describe('WeekComponent', () => {
 
@@ -11,8 +10,7 @@ describe('WeekComponent', () => {
             declarations: [
                 WeekComponent
             ],
-            providers: [ DateService ],
-            imports: [ CalendarModule.forRoot() ]
+            providers: [ DateService ]
         }).compileComponents();
     }));
 

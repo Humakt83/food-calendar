@@ -4,3 +4,29 @@
     margin: auto; 
     display: table;   
 }
+
+.dayControls {
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.dayControl {
+    display: inline-block;
+    border: 2px ridge $gossip;
+    background-color: $sushi;
+    padding: 3px;
+    width: 13.74%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dayControlActive,
+.dayControl:hover {
+    border: 2px ridge $sushi;
+    background-color: $gossip;
+}
+
+.date {
+    font-size: smaller;
+}

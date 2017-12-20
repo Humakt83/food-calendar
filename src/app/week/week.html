@@ -3,8 +3,14 @@
     <input id="today" type="button" value="TODAY" (click)="today()">
     <input id="nextWeek" type="button" value="&#8614;" (click)="nextWeek()">
 </div>
-<mwl-calendar-week-view
-    [viewDate]="viewDate"
-    [events]="[]"
-    (dayHeaderClicked)="changeDay($event.day.date)">
-</mwl-calendar-week-view>
+
+<div class="dayControls">
+    <div class="dayControl" *ngFor="let day of dates" (click)="changeDay(day)" [class.dayControlActive]="viewDate.toDateString() === day.toDateString()">
+        <div class="dayName">
+            {{dayNames[day.getDay()]}}
+        </div>
+        <div class="date">
+            {{day | date: 'dd.MM.yyyy'}}
+        </div>
+    </div>
+</div>

@@ -19,7 +19,6 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/angular-calendar/css/angular-calendar.css",
         "styles.scss"
       ],
       "scripts": [],

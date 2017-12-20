@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule } from 'angular-calendar';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -26,8 +25,7 @@ import { DishAddComponent } from './dishes/dishadd.component';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        ReactiveFormsModule,
-        CalendarModule.forRoot()
+        ReactiveFormsModule
     ],
     providers: [
         StorageService,
