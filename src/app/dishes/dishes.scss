@@ -24,3 +24,27 @@
     min-width: 200px;
     text-align: center;
 }
+
+.breakfasts {
+    background: linear-gradient(to bottom, rgb(220, 180, 120), $main2 12%);
+}
+
+.meals {
+    background: linear-gradient(to bottom, rgb(220, 100, 100), $main2 12%);
+}
+
+.drinks {
+    background: linear-gradient(to bottom, rgb(240, 240, 240), $main2 12%);
+}
+
+.desserts {
+    background: linear-gradient(to bottom, rgb(250, 200, 200), $main2 12%);
+}
+
+.soups {
+    background: linear-gradient(to bottom, rgb(200, 220, 255), $main2 12%);
+}
+
+.snacks {
+    background: linear-gradient(to bottom, rgb(240, 240, 100), $main2 12%);
+}

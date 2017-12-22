@@ -8,6 +8,11 @@
     <div class="dish" *ngFor="let dish of meals | dishfilter: filter" draggable="true" (dragstart)="onDragStart($event, dish)">{{dish}}</div>
 </div>
 
+<div class="dishes drinks">
+    <h3>Juomat</h3>
+    <div class="dish" *ngFor="let dish of drinks | dishfilter: filter" draggable="true" (dragstart)="onDragStart($event, dish)">{{dish}}</div>
+</div>
+
 <div class="dishes soups">
     <h3>Keitot</h3>
     <div class="dish" *ngFor="let dish of soups | dishfilter: filter" draggable="true" (dragstart)="onDragStart($event, dish)">{{dish}}</div>

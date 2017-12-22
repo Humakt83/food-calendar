@@ -17,6 +17,8 @@ export class DishesService {
     private snacks = new BehaviorSubject<string[]>(['Jogurtti', 'Raejuusto', 'Banaani', 'Omena', 'Keksi', 'Sämpylä']);
     private soups = new BehaviorSubject<string[]>(['Hernekeitto', 'Siskonmakkarakeitto', 'Porkkanakeitto', 'Nakkikeitto', 
         'Jauhelihakeitto']);
+    private drinks = new BehaviorSubject<string[]>(['Maito', 'Kahvi', 'Omenamehu', 'Appelsiinimehu', 'Olut', 'Punaviini', 
+        'Valkoviini', 'Tee']);
     
     private dishesFilter = new BehaviorSubject<string>('');
 
@@ -26,6 +28,7 @@ export class DishesService {
         this.desserts.next(_.uniq(this.desserts.getValue().concat(this.storage.getFoodForSection(DishType.DESSERT))));
         this.snacks.next(_.uniq(this.snacks.getValue().concat(this.storage.getFoodForSection(DishType.SNACK))));
         this.soups.next(_.uniq(this.soups.getValue()).concat(this.storage.getFoodForSection(DishType.SOUP)));
+        this.drinks.next(_.uniq(this.drinks.getValue()).concat(this.storage.getFoodForSection(DishType.DRINK)));
     }
 
     getBreakfasts(): Observable<string[]> {
@@ -46,6 +49,10 @@ export class DishesService {
 
     getSoups(): Observable<string[]> {
         return this.soups;
+    }
+
+    getDrinks(): Observable<string[]> {
+        return this.drinks;
     }
 
     addDish(dishType: DishType, food: string) {
