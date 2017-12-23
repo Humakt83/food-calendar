@@ -10,15 +10,18 @@ import * as _ from 'lodash';
 @Injectable()
 export class DishesService {
 
-    private breakfasts = new BehaviorSubject<string[]>(['Weetabix', 'Kaurapuuro', 'Pekoni ja munat', 'Paistetut munat', 'Mysli']);
-    private meals = new BehaviorSubject<string[]>(['Lihapullat ja perunamuussi', 'Pasta bolognese', 'Pizza', 
-        'Pasta carbonara', 'Nakit ja ranskalaiset', 'Lihamakaronilaatikko', 'Maksalaatikko']);
+    private breakfasts = new BehaviorSubject<string[]>(['Weetabix', 'Kaurapuuro', 'Pekoni ja munat', 'Paistetut munat', 'Mysli'
+        , 'Maissihiutaleet', 'Riisimurot', 'Paahtoleipä']);
+    private meals = new BehaviorSubject<string[]>(['Lihapullat', 'Pasta bolognese', 'Pizza', 
+        'Pasta carbonara', 'Nakit', 'Lihamakaronilaatikko', 'Maksalaatikko', 'Pinaattiohukaiset', 'Pihvi',
+        'Kanawokki', 'Hampurilainen', 'Perunamuussi', 'Ranskalaiset', 'Riisi', 'Kalapuikot', 'Perunat', 'Pasta', 'Nuudeli']);
     private desserts = new BehaviorSubject<string[]>(['Jäätelö', 'Mustikkapiirakka', 'Pulla', 'Kakku']);
-    private snacks = new BehaviorSubject<string[]>(['Jogurtti', 'Raejuusto', 'Banaani', 'Omena', 'Keksi', 'Sämpylä']);
+    private snacks = new BehaviorSubject<string[]>(['Jogurtti', 'Raejuusto', 'Banaani', 'Omena', 'Keksi', 'Sämpylä', 'Mandariini',
+        'Rahka', 'Kinkkuleipä', 'Meetwurstileipä']);
     private soups = new BehaviorSubject<string[]>(['Hernekeitto', 'Siskonmakkarakeitto', 'Porkkanakeitto', 'Nakkikeitto', 
-        'Jauhelihakeitto']);
+        'Jauhelihakeitto', 'Kasviskeitto']);
     private drinks = new BehaviorSubject<string[]>(['Maito', 'Kahvi', 'Omenamehu', 'Appelsiinimehu', 'Olut', 'Punaviini', 
-        'Valkoviini', 'Tee']);
+        'Valkoviini', 'Tee', 'Vesi']);
     
     private dishesFilter = new BehaviorSubject<string>('');
 
