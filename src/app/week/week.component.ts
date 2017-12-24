@@ -47,7 +47,9 @@ export class WeekComponent {
 
     private generateDatesForWeek() {
         this.dates = [];
-        const startOfWeek = moment(this.viewDate).set('days', 1);
+        const startOfWeek = this.viewDate.getDay() === 0 
+            ? moment(this.viewDate).subtract(6, 'days')
+            : moment(this.viewDate).set('days', 1);
         for (let i = 0; i < 7; i++) {
             this.dates.push(moment(startOfWeek).add(i, 'days').toDate());
         }

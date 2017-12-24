@@ -89,6 +89,8 @@ export class DishesService {
                 return this.snacks;
             case DishType.SOUP:
                 return this.soups;
+            case DishType.DRINK:
+                return this.drinks;
         }
     }
 
