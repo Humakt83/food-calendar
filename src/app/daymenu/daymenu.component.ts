@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StorageService } from '../storage/storage.service';
+import { WebStorageService } from '../storage/webstorage.service';
 import { FoodCalendarDay, FoodMenuSection } from '../foodcalendar/foodcalendarday';
 import { FoodSection } from '../foodcalendar/foodsection';
 import { DateService } from '../week/date.service';
@@ -21,7 +21,7 @@ export class DayMenuComponent implements OnInit, OnDestroy {
     private selectedDay: Date;
     private subscription: Subscription;
 
-    constructor(private storage: StorageService, private dateService: DateService) {
+    constructor(private storage: WebStorageService, private dateService: DateService) {
     }
 
     ngOnInit() {
@@ -31,11 +31,13 @@ export class DayMenuComponent implements OnInit, OnDestroy {
                     sections.filter(s => s.section === section)[0].food : [];
             };
             this.selectedDay = result;
-            const foodSections = this.storage.getFood(result).sections;
-            this.breakfasts = getFoodForSection(FoodSection.BREAKFAST, foodSections);
-            this.lunches = getFoodForSection(FoodSection.LUNCH, foodSections);
-            this.dinners = getFoodForSection(FoodSection.DINNER, foodSections);     
-            this.snacks = getFoodForSection(FoodSection.SNACK, foodSections);
+            this.storage.getFood(result).subscribe((fcd: FoodCalendarDay) => {
+                const foodSections = fcd.sections;
+                this.breakfasts = getFoodForSection(FoodSection.BREAKFAST, foodSections);
+                this.lunches = getFoodForSection(FoodSection.LUNCH, foodSections);
+                this.dinners = getFoodForSection(FoodSection.DINNER, foodSections);     
+                this.snacks = getFoodForSection(FoodSection.SNACK, foodSections);
+            });
         });
     }
 
@@ -79,7 +81,7 @@ export class DayMenuComponent implements OnInit, OnDestroy {
 
     private removeFood(section: FoodSection, arrayToRemove: string[], food: string) {
         _.remove(arrayToRemove, (f => f === food));
-        this.storage.removeFood(food, section, this.selectedDay);
+        this.storage.removeFood(food, section, this.selectedDay).subscribe();
     }
 
     private dropFood(event: DragEvent, section: FoodSection, arrayToAdd: string[]) {
@@ -88,6 +90,7 @@ export class DayMenuComponent implements OnInit, OnDestroy {
             return; 
         }
         arrayToAdd.push(food);
-        this.storage.storeFood(food, section, this.selectedDay);
+        this.storage.storeFood(food, section, this.selectedDay)
+            .subscribe(console.log);
     }
 }

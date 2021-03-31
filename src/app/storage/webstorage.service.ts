@@ -13,31 +13,37 @@ export class WebStorageService {
 
   BASE_HREF = 'http://localhost:3000/api';
   DISH_URL = this.BASE_HREF + '/dish';
+  FOOD_CALENDAR_URL = this.BASE_HREF + '/food-calendar-day';
 
   constructor(private http: HttpClient) {}
     
-  storeFood(food: string, where: FoodSection, day: Date) {
-      const foodDay = this.getFood(day);
-      const section = foodDay.sections.find(s => FoodSection[s.section] === FoodSection[where]);
-      if (section !== null && section !== undefined) {
-          section.food.push(food);
-      } else {
-          foodDay.sections.push(new FoodMenuSection(where as FoodSection, [food]));
-      }
-      this.storeFoodDay(foodDay);
+  storeFood(food: string, where: FoodSection, day: Date): Observable<any> {
+    const foodCalendarDate = {
+        date: day,
+        sections: [{
+            section: FoodSection[where].toString(),
+            dishes: [food],
+        }]
+    };
+    return this.http.post<any>(this.FOOD_CALENDAR_URL, foodCalendarDate);
   }
 
-  removeFood(food: string, where: FoodSection, day: Date) {
-      const foodDay = this.getFood(day);
-      const section = foodDay.sections.find(s => FoodSection[s.section] === FoodSection[where]);
-      if (section !== null && section !== undefined) {
-          _.remove(section.food, (f => f === food));
-      }
-      this.storeFoodDay(foodDay);
+  removeFood(food: string, where: FoodSection, day: Date): Observable<any> {
+    const dayString = this.formatDateString(day);
+    return this.http.delete(`${this.FOOD_CALENDAR_URL}/section/${FoodSection[where].toString()}/dish/${food}/${dayString}`);
   }
 
-  getFood(day: Date): FoodCalendarDay {
-      return this.getFoodDataForDay(day) || new FoodCalendarDay(day, []);
+  getFood(day: Date): Observable<FoodCalendarDay> {
+      const foodSections = [FoodSection.BREAKFAST, FoodSection.LUNCH, FoodSection.DINNER, FoodSection.SNACK];
+      const dayString = this.formatDateString(day);
+      return this.http.get<any>(`${this.FOOD_CALENDAR_URL}/${dayString}`)
+        .pipe(map(result => {            
+            const sections: FoodMenuSection[] = foodSections.map(section => {
+                const sectionResult = result[FoodSection[section].toString()] || [];
+                return new FoodMenuSection(section, sectionResult.map(res => res.name));
+            });
+            return new FoodCalendarDay(day, sections);
+        }));    
   }
 
   getFoodForShoppingList(): FoodCalendarDay[] {
@@ -54,22 +60,12 @@ export class WebStorageService {
         .pipe(map(result => result.map(resObj => resObj.name)));
   }
 
-  private storeFoodDay(foodDay: FoodCalendarDay) {
-      const findFoodDay = (fcd) => fcd.day.toDateString() === foodDay.day.toDateString();
-      const filterOutFoodDay = (fcd) => !findFoodDay(fcd);
-      let foodData: FoodCalendarDay[] = this.getFoodData();
-      if (!!foodData.find(findFoodDay)) {
-          foodData = foodData.filter(filterOutFoodDay);            
-      }
-      foodData.push(foodDay);
-  }
-
-  private getFoodDataForDay(day: Date): FoodCalendarDay {
-      return this.getFoodData().find(fc => fc.day.toDateString() === day.toDateString());
-  }
-
   private getFoodData(): FoodCalendarDay[] {
       return []; // JSON.parse(localStorage.getItem(this.storageName) || '[]').map(FoodCalendarDay.fromJson);
+  }
+
+  private formatDateString(day: Date): string {
+    return moment(day).format('YYYY-MM-DD');
   }
 
 }
