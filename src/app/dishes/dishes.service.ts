@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { StorageService } from '../storage/storage.service';
+import { WebStorageService } from '../storage/webstorage.service';
 import { DishType } from '../foodcalendar/dishtype';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/combineLatest';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/observable/of';
+import { zip } from 'rxjs';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -25,13 +25,19 @@ export class DishesService {
     
     private dishesFilter = new BehaviorSubject<string>('');
 
-    constructor(private storage: StorageService) {
-        this.breakfasts.next(_.uniq(this.breakfasts.getValue().concat(this.storage.getFoodForSection(DishType.BREAKFAST))));
-        this.meals.next(_.uniq(this.meals.getValue().concat(this.storage.getFoodForSection(DishType.MEAL))));
-        this.desserts.next(_.uniq(this.desserts.getValue().concat(this.storage.getFoodForSection(DishType.DESSERT))));
-        this.snacks.next(_.uniq(this.snacks.getValue().concat(this.storage.getFoodForSection(DishType.SNACK))));
-        this.soups.next(_.uniq(this.soups.getValue()).concat(this.storage.getFoodForSection(DishType.SOUP)));
-        this.drinks.next(_.uniq(this.drinks.getValue()).concat(this.storage.getFoodForSection(DishType.DRINK)));
+    constructor(private storage: WebStorageService) {
+        Observable.zip(this.breakfasts, this.storage.getFoodForSection(DishType.BREAKFAST))
+            .next(_.uniq(this.breakfasts.getValue()));
+        zip(this.meals, this.storage.getFoodForSection(DishType.MEAL))
+            .next(_.uniq(this.breakfasts.getValue()));
+        zip(this.desserts, this.storage.getFoodForSection(DishType.DESSERT))
+            .next(_.uniq(this.breakfasts.getValue()));
+        zip(this.snacks, this.storage.getFoodForSection(DishType.SNACK))
+            .next(_.uniq(this.breakfasts.getValue()));
+        zip(this.soups, this.storage.getFoodForSection(DishType.SOUP))
+            .next(_.uniq(this.breakfasts.getValue()));
+        zip(this.drinks, this.storage.getFoodForSection(DishType.DRINK))
+            .next(_.uniq(this.breakfasts.getValue()));
     }
 
     getBreakfasts(): Observable<string[]> {
@@ -66,7 +72,9 @@ export class DishesService {
         }
         dishes.push(food);
         dishSection.next(dishes);
-        this.storage.addFoodToSection(food, dishType);
+        this.storage.addFoodToSection(food, dishType).subscribe((result) => {
+            console.log(result);
+        });
     }
 
     getFilter(): Observable<string> {
