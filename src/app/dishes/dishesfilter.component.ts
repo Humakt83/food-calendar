@@ -3,12 +3,7 @@ import { DishesService } from './dishes.service';
 
 @Component({
     selector: 'app-dishesfilter',
-    template: `
-        <div class="dishesFilter">
-            <label for="dishesFilter">Suodata ruokalajeja</label>
-            <input name="dishesFilter" type="text" (change)="onFilterChange($event.target.value)">
-        </div>
-    `,
+    templateUrl: 'dishesfilter.html',
     styles: [`
         .dishesFilter {
             display: inline-block;
@@ -21,8 +16,8 @@ export class DishesFilterComponent {
 
     constructor(private dishesService: DishesService) {}
 
-    onFilterChange(filter: string) {
-        this.dishesService.changeFilter(filter);
+    onFilterChange(event: Event) {
+        this.dishesService.changeFilter((<HTMLInputElement>event.target).value);
     }
 
 }

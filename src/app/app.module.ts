@@ -5,17 +5,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { WeekComponent } from './week/week.component';
-import { DishesComponent } from './dishes/dishes.component';
-import { DayMenuComponent } from './daymenu/daymenu.component';
-import { StorageService } from './storage/storage.service';
-import { WebStorageService } from './storage/webstorage.service';
 import { DateService } from './week/date.service';
-import { ShoppingListComponent } from './shoppinglist/shoppinglist.component';
-import { DishesService } from './dishes/dishes.service';
+import { DayMenuComponent } from './daymenu/daymenu.component';
 import { DishAddComponent } from './dishes/dishadd.component';
+import { DishesComponent } from './dishes/dishes.component';
+import { DishesService } from './dishes/dishes.service';
 import { DishesFilterComponent } from './dishes/dishesfilter.component';
 import { DishesFilterPipe } from './dishes/dishesfilter.pipe';
+import { ShoppingListComponent } from './shoppinglist/shoppinglist.component';
+import { StorageService } from './storage/storage.service';
+import { WebStorageService } from './storage/webstorage.service';
+import { WeekComponent } from './week/week.component';
 
 @NgModule({
     declarations: [
@@ -26,19 +26,19 @@ import { DishesFilterPipe } from './dishes/dishesfilter.pipe';
         ShoppingListComponent,
         DishAddComponent,
         DishesFilterComponent,
-        DishesFilterPipe
+        DishesFilterPipe,
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     providers: [
         StorageService,
         DateService,
         DishesService,
         WebStorageService],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { WebStorageService } from '../storage/webstorage.service';
 import { DishType } from '../foodcalendar/dishtype';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { zip } from 'rxjs';
 import * as _ from 'lodash';
 
@@ -26,18 +25,25 @@ export class DishesService {
     private dishesFilter = new BehaviorSubject<string>('');
 
     constructor(private storage: WebStorageService) {
-        Observable.zip(this.breakfasts, this.storage.getFoodForSection(DishType.BREAKFAST))
-            .next(_.uniq(this.breakfasts.getValue()));
-        zip(this.meals, this.storage.getFoodForSection(DishType.MEAL))
-            .next(_.uniq(this.breakfasts.getValue()));
-        zip(this.desserts, this.storage.getFoodForSection(DishType.DESSERT))
-            .next(_.uniq(this.breakfasts.getValue()));
-        zip(this.snacks, this.storage.getFoodForSection(DishType.SNACK))
-            .next(_.uniq(this.breakfasts.getValue()));
-        zip(this.soups, this.storage.getFoodForSection(DishType.SOUP))
-            .next(_.uniq(this.breakfasts.getValue()));
-        zip(this.drinks, this.storage.getFoodForSection(DishType.DRINK))
-            .next(_.uniq(this.breakfasts.getValue()));
+        this.storage.getFoodForSection(DishType.BREAKFAST).subscribe((result: string[]) =>
+            this.breakfasts.next(_.uniq(this.breakfasts.getValue().concat(result)))
+        );
+        this.storage.getFoodForSection(DishType.MEAL).subscribe((result: string[]) => {
+            console.log(result);
+            this.meals.next(_.uniq(this.meals.getValue().concat(result)))
+        });
+        this.storage.getFoodForSection(DishType.DESSERT).subscribe((result: string[]) =>
+            this.desserts.next(_.uniq(this.desserts.getValue().concat(result)))
+        );
+        this.storage.getFoodForSection(DishType.SNACK).subscribe((result: string[]) =>
+            this.snacks.next(_.uniq(this.snacks.getValue().concat(result)))
+        );
+        this.storage.getFoodForSection(DishType.SOUP).subscribe((result: string[]) =>
+            this.soups.next(_.uniq(this.soups.getValue().concat(result)))
+        );
+        this.storage.getFoodForSection(DishType.DRINK).subscribe((result: string[]) =>
+            this.drinks.next(_.uniq(this.drinks.getValue().concat(result)))
+        );
     }
 
     getBreakfasts(): Observable<string[]> {

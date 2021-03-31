@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
 import { FoodCalendarDay, FoodMenuSection, FoodDishSection } from '../foodcalendar/foodcalendarday';
 import { FoodSection } from '../foodcalendar/foodsection';
 import { DishType } from '../foodcalendar/dishtype';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class WebStorageService {
@@ -49,7 +50,8 @@ export class WebStorageService {
   }
 
   getFoodForSection(section: DishType): Observable<string[]> {
-    return this.http.get<string[]>(`${this.DISH_URL}/${DishType[section].toString()}`);
+    return this.http.get<[{id: number, name: string, dishtype: DishType}]>(`${this.DISH_URL}/${DishType[section].toString()}`)
+        .pipe(map(result => result.map(resObj => resObj.name)));
   }
 
   private storeFoodDay(foodDay: FoodCalendarDay) {

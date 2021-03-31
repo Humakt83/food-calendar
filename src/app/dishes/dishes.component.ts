@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DishesService } from './dishes.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
     selector: 'app-dishes',
@@ -9,12 +9,12 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class DishesComponent implements OnInit, OnDestroy {
 
-    breakfasts = [];
-    meals = [];
-    drinks = [];
-    soups = [];
-    desserts = [];
-    snacks = [];
+    breakfasts: string[] = [];
+    meals: string[] = [];
+    drinks: string[] = [];
+    soups: string[] = [];
+    desserts: string[] = [];
+    snacks: string[] = [];
     filter: string;
 
     private subscriptions: Subscription[] = [];

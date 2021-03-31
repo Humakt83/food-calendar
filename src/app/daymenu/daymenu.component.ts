@@ -4,7 +4,7 @@ import { FoodCalendarDay, FoodMenuSection } from '../foodcalendar/foodcalendarda
 import { FoodSection } from '../foodcalendar/foodsection';
 import { DateService } from '../week/date.service';
 import * as _ from 'lodash';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
     selector: 'app-daymenu',
